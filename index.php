@@ -1,6 +1,5 @@
 <?php
     session_start();
-    include "koneksi.php";
 ?>
 
 
@@ -15,72 +14,40 @@
   <link rel="stylesheet" href="style2.css">
   
 </head>
-<style class="text/css">
-body{
-  background: rgba(0,0,0,0.5);
-  background-image: url(assets/untar.jpg);
-  background-size: cover;
-}
-</style>
 <body>
+  <nav>
+    <img src="/web/assets/un4.png"class="mascot">
+    <label class="logo">Pengisian KRRS UNTAR</label>
+    <ul class="btn-group mr2">
+      <li><a class="btn btn-outline-warning" href="/web/mahasiswa/index.php">Home</a></li>
+      <li><a class="btn btn-outline-warning" href="/web/mahasiswa/tentang.html" target="_blank">Tentang</a></li>
+      <li><a class="btn btn-outline-warning" href="/web/mahasiswa/kontak.html" target="_blank">Kontak</a></li>
+      <li><a class="btn btn-outline-warning" href="/web/mahasiswa/masukkan.html" target="_blank">Masukan</a></li>
+    </ul>
+  </nav>
+  
+  <div class="sidebar">
+    <header>Hi, <?php echo $_SESSION['username']; ?></header>
+    <ul>
+      <li><a href="/web/mahasiswa/profil.php"><i class="fas fa-user"></i>Profil</a></li>
+      <li><a href="/web/mahasiswa/lintar.html"><i class="fas fa-address-book"></i>Lintar Mahasiswa</a></li>
+      <li><a href="/web/mahasiswa/status.php"><i class="fas fa-address-card"></i>Status Registrasi</a></li>
+      <li><a href="/web/mahasiswa/panduan.html"><i class="fas fa-file"></i>Panduan KRRS</a></li>
+      <li><a href="/web/mahasiswa/krrs.html"><i class="fas fa-pen"></i>KRRS Reguler</a></li>
+      <li><a href="/web/mahasiswa/cetakkrrs.php" target="_blank"><i class="fas fa-print"></i>Cetak KRRS</a></li>
+      <li><a href="/web/mahasiswa/logout.html"><i class="fas fa-circle-xmark"></i>LOG OUT</a></li>
+    </ul>
+  </div>
 
-  <div class="container">
-    <h2 class="text-center"><img src="assets/un4.png" width="50px" height="50px"><br>Login</h2>
-    <hr>
-    <form id="loginform" action="" method="post">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-user"></i></div>
-            <input type="text" class="form-control" id="username" name="username" placeholder="username">
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-unlock-alt"></i></div>
-            <input type="password" class="form-control" id="password" name="password" placeholder="password">
-          </div>
-        </div>
-      </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-      </div>
-      <button type="submit" class="btn btn-primary" name="login">Login</button>
-      <p>Don't have account? <a href="signup.php">click here</a></p>
-    </form>
-
-    <?php
-        if (isset($_POST['login'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $qry = mysqli_query($koneksi, "SELECT * FROM login WHERE username = '$username' AND password = '$password'");
-            $check = mysqli_num_rows($qry);
-            $username = $check['username'];
-            $password = $check['password'];
-            $role = $check['role'];
-            if ($check > 0) {
-              $data = mysqli_fetch_assoc($qry);
-              session_start();
-              if ($data['role'] == "admin") {
-                session_start();
-                $_SESSION['username'] = $data['username'];
-                $_SESSION['role'] = "admin";
-                header("location:/web/admin/index.php");
-              } else {
-                session_start();
-                $_SESSION['username'] = $data['username'];
-                $_SESSION['role'] = "mahasiswa";
-                header("location:/web/mahasiswa/index.php");
-              }
-            }
-        }
-    ?>
-
+  <div class="content">
+    <h2>KRRS Online Mahasiswa</h2>
+    <p>Selamat datang di Web KRRS Online Mahasiswa untuk melakukan Pengisian KRRS ONLINE dan CETAK KSS ONLINE.</p>
+    <br>
+    <h3>Perhatian Untuk Seluruh Mahasiswa.</h3>
+    <p style="color: red;">1. Cetak KSS (Kartu Study Sementara) saat telah selesai pengisian KRRS ONLINE untuk bukti pengisian dan pengambilan KSM (Kartu Studi Mahasiswa)</p>
+    <p>2. Sebelum mengisi KRRS Online anda diharuskan sudah mempersiapkan mata kuliah yang akan diambil</p>
+    <p>3. Anda tidak dapat mengisi KRRS ONLINE Apabila masih menunggak pembayaran kuliah</p>
+    <p style="color: red;">4. Panduan pengisian KRRS ONLINE dapat anda lihat di Panduan KRRS</p>
   </div>
 </body>
 </html>
